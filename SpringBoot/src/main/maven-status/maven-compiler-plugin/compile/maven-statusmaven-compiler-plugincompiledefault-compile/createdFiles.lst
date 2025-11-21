@@ -1,0 +1,6 @@
+com\example\vehiculos\models\Vehicle.class
+com\example\vehiculos\repository\VehicleRepository.class
+com\example\vehiculos\controller\VehicleController.class
+com\example\vehiculos\services\VehicleService.class
+com\example\vehiculos\services\VehicleServiceImpl.class
+com\example\vehiculos\Application.class
