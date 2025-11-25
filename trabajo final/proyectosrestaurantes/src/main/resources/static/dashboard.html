@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecomerse - Usuario</title>
+    <link rel="stylesheet" href="css/style.css?v=azul1">
+</head>
+
+<body>
+    <header>
+        <h3>Mi Tienda</h3>
+        <button class="btn btn-danger" onclick="logout()">Logout</button>
+    </header>
+
+    <div class="container">
+        <div class="card" style="margin-bottom:20px;">
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="showSection('productos')">Productos</button>
+                <button class="btn" onclick="showSection('carrito')">Mi Carrito</button>
+                <button class="btn" onclick="showSection('pedidos')">Mis Pedidos</button>
+            </div>
+        </div>
+
+        <section id="productos-section">
+            <h2 class="section-title">Productos</h2>
+            <div id="productos-container" class="grid"></div>
+        </section>
+
+        <section id="carrito-section" style="display:none;">
+            <h2 class="section-title">Mi Carrito</h2>
+            <div id="carrito-container" class="grid"></div>
+            <div class="button-group" style="margin-top:10px;">
+                <button class="btn btn-primary" onclick="confirmarPedido()">Confirmar Pedido</button>
+                <button class="btn btn-danger" onclick="vaciarCarrito()">Vaciar Carrito</button>
+            </div>
+        </section>
+
+        <section id="pedidos-section" style="display:none;">
+            <h2 class="section-title">Mis Pedidos</h2>
+            <div id="pedidos-container" class="grid"></div>
+        </section>
+
+        
+    </div>
+
+    
+
+    <script src="js/app.js"></script>
+    <script>
+        const user = checkAuth();
+
+        function showSection(section) {
+            document.getElementById('productos-section').style.display = section === 'productos' ? 'block' : 'none';
+            document.getElementById('carrito-section').style.display = section === 'carrito' ? 'block' : 'none';
+            document.getElementById('pedidos-section').style.display = section === 'pedidos' ? 'block' : 'none';
+        }
+
+        async function loadProductos() {
+            const products = await getProducts();
+            const container = document.getElementById('productos-container');
+            container.innerHTML = products.map(p => {
+                const disabled = !p.stock || p.stock <= 0;
+                const agotadoBadge = disabled ? `<span class="badge badge-pending">Agotado</span>` : '';
+                const price = p.price?.toFixed ? p.price.toFixed(2) : p.price;
+                return `
+                <div class="card room-card">
+                    <h3>${p.name} ${agotadoBadge}</h3>
+                    <p>${p.description || ''}</p>
+                    <p><strong>Precio:</strong> $${price}</p>
+                    <p><span class="tag">Stock: ${p.stock}</span></p>
+                    <div class="button-group">
+                        <button class="btn ${disabled ? '' : 'btn-primary'}" ${disabled ? 'disabled' : ''} onclick="addProductoCarrito('${p.id}', 1)">Añadir</button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        async function loadCarrito() {
+            const [items, products] = await Promise.all([getUserCart(user.id), getProducts()]);
+            const map = Object.fromEntries(products.map(p => [p.id, p]));
+            const container = document.getElementById('carrito-container');
+            if (!items || items.length === 0) {
+                container.innerHTML = '<div class="card">Carrito vacío</div>';
+                return;
+            }
+            container.innerHTML = items.map(ci => {
+                const p = map[ci.productId];
+                const name = p ? p.name : ci.productId;
+                const price = p ? (p.price?.toFixed ? p.price.toFixed(2) : p.price) : '-';
+                return `
+                <div class="card reservation-card">
+                    <div>
+                        <strong>Producto:</strong> ${name} (${ci.productId})<br>
+                        <strong>Cantidad:</strong> ${ci.quantity}<br>
+                        <strong>Precio unitario:</strong> $${price}
+                    </div>
+                    <button class="btn btn-danger" onclick="eliminarItemCarrito('${ci.id}')">Eliminar</button>
+                </div>`;
+            }).join('');
+        }
+
+        async function loadPedidos() {
+            const pedidos = await getMyOrders(user.id);
+            const container = document.getElementById('pedidos-container');
+            if (!pedidos || pedidos.length === 0) {
+                container.innerHTML = '<div class="card">Sin pedidos</div>';
+                return;
+            }
+            container.innerHTML = pedidos.map(o => `
+                <div class="card room-card">
+                    <h3>Pedido ${o.id}</h3>
+                    <p><span class="badge ${o.status === 'ACCEPTED' ? 'badge-approved' : 'badge-pending'}">${o.status}</span></p>
+                    <p><strong>Total:</strong> $${o.total?.toFixed ? o.total.toFixed(2) : o.total}</p>
+                    <p><strong>Items:</strong> ${o.items ? o.items.length : 0}</p>
+                </div>
+            `).join('');
+        }
+
+        async function addProductoCarrito(productId, quantity) {
+            const ok = await addToCart({ userId: user.id, productId, quantity });
+            if (ok) {
+                alert('Añadido al carrito');
+                showSection('carrito');
+                loadCarrito();
+            } else {
+                alert('Error al añadir');
+            }
+        }
+
+        async function eliminarItemCarrito(id) {
+            const ok = await removeCartItem(id);
+            if (ok) loadCarrito(); else alert('Error al eliminar');
+        }
+
+        async function confirmarPedido() {
+            const ok = await createOrder(user.id);
+            if (ok) {
+                alert('Pedido creado');
+                loadCarrito();
+                loadPedidos();
+                showSection('pedidos');
+            } else {
+                alert('Error al crear pedido');
+            }
+        }
+
+        async function vaciarCarrito() {
+            const ok = await clearCart(user.id);
+            if (ok) loadCarrito(); else alert('Error al vaciar');
+        }
+
+        (async function init() {
+            await loadProductos();
+            await loadCarrito();
+            await loadPedidos();
+        })();
+    </script>
+</body>
+
+</html>

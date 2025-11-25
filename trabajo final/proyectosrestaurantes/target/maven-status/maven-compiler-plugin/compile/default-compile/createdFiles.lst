@@ -1,0 +1,17 @@
+com\kalechoweb\backend\controller\AuthController.class
+com\kalechoweb\backend\service\ReservationService.class
+com\kalechoweb\backend\service\UserService.class
+com\kalechoweb\backend\repository\PeticionRepository.class
+com\kalechoweb\backend\controller\ReservationController.class
+com\kalechoweb\backend\model\Resena.class
+com\kalechoweb\backend\service\ResenaService.class
+com\kalechoweb\backend\controller\ResenaController.class
+com\kalechoweb\backend\repository\ResenaRepository.class
+com\kalechoweb\backend\repository\UserRepository.class
+com\kalechoweb\backend\controller\PeticionController.class
+com\kalechoweb\backend\model\Peticion.class
+com\kalechoweb\backend\repository\ReservationRepository.class
+com\kalechoweb\backend\service\OrderService.class
+com\kalechoweb\backend\model\Reservation.class
+com\kalechoweb\backend\model\User.class
+com\kalechoweb\backend\service\PeticionService.class

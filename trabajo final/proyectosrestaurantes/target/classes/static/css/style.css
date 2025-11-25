@@ -1,0 +1,186 @@
+:root {
+    --primary-color: #1e88e5;
+    --secondary-color: #e3f2fd;
+    --text-color: #0d1b2a;
+    --danger-color: #1565c0;
+    --success-color: #64b5f6;
+    --accent-color: #90caf9;
+    --header-start: #2196f3;
+    --header-end: #1565c0;
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg, #f6fbff 0%, var(--secondary-color) 100%);
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background: linear-gradient(90deg, var(--header-start), var(--header-end));
+    color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(30, 136, 229, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+    letter-spacing: 0.2px;
+}
+
+.section-title {
+    text-align: center;
+    color: var(--primary-color);
+    margin: 10px 0 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-like {
+    background: #e3f2fd;
+    color: var(--primary-color);
+}
+
+.btn-dislike {
+    background: #e8f0fe;
+    color: #0d47a1;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 6px 12px rgba(30, 136, 229, 0.25);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+    box-shadow: 0 6px 12px rgba(21, 101, 192, 0.25);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 14px rgba(0,0,0,0.12);
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(30, 136, 229, 0.08);
+    margin-bottom: 20px;
+    border: 1px solid #bbdefb;
+}
+
+.card:hover {
+    box-shadow: 0 10px 22px rgba(30, 136, 229, 0.15);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.12);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.room-card {
+    border-left: 6px solid var(--accent-color);
+}
+
+.reservation-card {
+    border-left: 6px solid var(--success-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#login-container {
+    max-width: 400px;
+    margin: 100px auto;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-approved {
+    background: #e3f2fd;
+    color: var(--primary-color);
+}
+
+.badge-pending {
+    background: #e8f0fe;
+    color: #0d47a1;
+}
+
+.tag {
+    display: inline-block;
+    background: #e3f2fd;
+    color: #0d47a1;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
