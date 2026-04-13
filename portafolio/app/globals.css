@@ -41,19 +41,19 @@
 
 :root.white-mode {
   --background: oklch(0.985 0.005 95);
-  --foreground: oklch(0.24 0.02 30);
+  --foreground: oklch(0.2 0.02 30);
   --card: oklch(0.995 0.002 95);
-  --card-foreground: oklch(0.24 0.02 30);
+  --card-foreground: oklch(0.2 0.02 30);
   --popover: oklch(0.995 0.002 95);
-  --popover-foreground: oklch(0.24 0.02 30);
+  --popover-foreground: oklch(0.2 0.02 30);
   --primary: oklch(0.58 0.22 28);
   --primary-foreground: oklch(0.98 0 0);
   --secondary: oklch(0.94 0.008 70);
-  --secondary-foreground: oklch(0.33 0.02 30);
+  --secondary-foreground: oklch(0.26 0.02 30);
   --muted: oklch(0.95 0.008 70);
-  --muted-foreground: oklch(0.34 0.02 30);
+  --muted-foreground: oklch(0.26 0.02 30);
   --accent: oklch(0.93 0.01 70);
-  --accent-foreground: oklch(0.28 0.02 30);
+  --accent-foreground: oklch(0.22 0.02 30);
   --border: oklch(0.84 0.02 42);
   --input: oklch(0.9 0.015 42);
   --ring: oklch(0.58 0.22 28);
@@ -1075,14 +1075,35 @@
   html.white-mode .contact-mini-label,
   html.white-mode .contact-mini-value,
   html.white-mode .contact-form-label {
-    color: rgba(66, 20, 18, 0.95) !important;
+    color: rgba(48, 12, 10, 0.98) !important;
     text-shadow: none;
+  }
+
+  html.white-mode h1,
+  html.white-mode h2,
+  html.white-mode h3,
+  html.white-mode h4,
+  html.white-mode .war-heading,
+  html.white-mode .war-card-title {
+    color: rgba(40, 9, 8, 0.99) !important;
+    text-shadow: none !important;
+  }
+
+  html.white-mode .war-nav-link,
+  html.white-mode .war-card-subtitle,
+  html.white-mode .war-card-text,
+  html.white-mode .war-panel p,
+  html.white-mode .war-panel li,
+  html.white-mode .war-panel label,
+  html.white-mode .war-panel a {
+    font-weight: 500;
+    letter-spacing: 0.015em;
   }
 
   html.white-mode .war-chip,
   html.white-mode .skill-pill,
   html.white-mode .contact-send {
-    color: rgba(63, 18, 16, 0.96) !important;
+    color: rgba(52, 14, 12, 0.98) !important;
   }
 
   html.white-mode .contact-input,
