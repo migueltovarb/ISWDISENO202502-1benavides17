@@ -48,7 +48,7 @@ const dictionaries: Record<Lang, Dictionary> = {
     "hero.tag5": "RESPONSABLE",
     "hero.ctaProjects": "[ VER PROYECTOS ]",
     "hero.ctaCV": "[ DESCARGAR CV ]",
-    "hero.role": "FULL STACK DEV",
+    "hero.role": "FULL STACK",
     "hero.photoAlt": "Foto de perfil",
 
     "section.skills": "02 - HABILIDADES TECNICAS",
@@ -357,7 +357,7 @@ const dictionaries: Record<Lang, Dictionary> = {
     "hero.tag5": "RESPONSIBLE",
     "hero.ctaProjects": "[ VIEW PROJECTS ]",
     "hero.ctaCV": "[ DOWNLOAD CV ]",
-    "hero.role": "FULL STACK DEV",
+    "hero.role": "FULL STACK",
     "hero.photoAlt": "Profile photo",
 
     "section.skills": "02 - TECHNICAL SKILLS",
