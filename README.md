@@ -9,3 +9,7 @@ El proyecto del portafolio se encuentra en la carpeta [portafolio](./portafolio)
 ### Demo en Vercel
 
 https://ronald-war-portfolio.vercel.app
+
+### Ultimo deploy
+
+https://ronald-war-portfolio-bkvful4gu.vercel.app
