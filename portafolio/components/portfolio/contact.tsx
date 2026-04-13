@@ -1,17 +1,18 @@
 "use client"
 
 import { useState } from "react"
-import { Mail, Github, Linkedin, MessageCircle } from "lucide-react"
+import { Mail, Github, Linkedin, MessageCircle, CircleCheckBig, TriangleAlert } from "lucide-react"
 import { useI18n } from "@/components/portfolio/i18n"
 
 export function Contact() {
   const { t } = useI18n()
+  const contactEmail = "felipe.benavides01@gmail.com"
   const contactInfo = [
     {
       icon: Mail,
       label: t("contact.label.email"),
-      value: "felipe.benavides01@gmail.com",
-      href: "mailto:felipe.benavides01@gmail.com"
+      value: contactEmail,
+      href: `mailto:${contactEmail}`
     },
     {
       icon: MessageCircle,
@@ -39,14 +40,57 @@ export function Contact() {
     asunto: "",
     mensaje: ""
   })
+  const [submitFeedback, setSubmitFeedback] = useState("")
+  const [submitState, setSubmitState] = useState<"idle" | "success" | "error">("idle")
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log(formData)
+    setIsSubmitting(true)
+    setSubmitFeedback("")
+    setSubmitState("idle")
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${contactEmail}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          name: formData.nombre,
+          email: formData.email,
+          _subject: formData.asunto,
+          message: formData.mensaje
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error("No se pudo enviar el formulario")
+      }
+
+      setSubmitFeedback("Mensaje enviado correctamente.")
+      setSubmitState("success")
+      setFormData({
+        nombre: "",
+        email: "",
+        asunto: "",
+        mensaje: ""
+      })
+    } catch {
+      setSubmitFeedback("No se pudo enviar. Intenta de nuevo en unos segundos.")
+      setSubmitState("error")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (submitState !== "idle") {
+      setSubmitState("idle")
+      setSubmitFeedback("")
+    }
+
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -159,10 +203,24 @@ export function Contact() {
 
                 <button
                   type="submit"
-                  className="contact-send w-full"
+                  disabled={isSubmitting}
+                  className="contact-send w-full disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {t("contact.form.send")}
+                  {isSubmitting ? "[ ENVIANDO... ]" : t("contact.form.send")}
                 </button>
+
+                {submitFeedback && (
+                  <div
+                    className={`contact-feedback flex items-center gap-2 border px-3 py-2 text-sm tracking-[0.04em] ${
+                      submitState === "success"
+                        ? "contact-feedback-success border-emerald-400/60 bg-emerald-500/10 text-emerald-300"
+                        : "contact-feedback-error border-red-400/60 bg-red-500/10 text-red-300"
+                    }`}
+                  >
+                    {submitState === "success" ? <CircleCheckBig className="w-4 h-4" /> : <TriangleAlert className="w-4 h-4" />}
+                    <p>{submitFeedback}</p>
+                  </div>
+                )}
               </div>
             </form>
           </div>
