@@ -30,7 +30,7 @@ export function Testimonials() {
           {testimonials.map((item) => (
             <article
               key={item.id}
-              className="war-panel war-card p-6 border-primary/45 bg-[linear-gradient(135deg,rgba(42,10,10,0.96),rgba(78,14,14,0.9))] shadow-[0_12px_30px_rgba(140,22,22,0.28)]"
+              className="war-panel testimonial-card war-card p-6 border-primary/45"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3 min-w-0">
