@@ -12,4 +12,4 @@ https://ronald-war-portfolio.vercel.app
 
 ### Ultimo deploy
 
-https://ronald-war-portfolio-fl00mub0n.vercel.app
+https://ronald-war-portfolio-fyavzbitg.vercel.app
